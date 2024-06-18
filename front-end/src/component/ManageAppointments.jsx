@@ -10,19 +10,10 @@ export default function ManageAppointments() {
     const navigate = useNavigate();
     const allowedRole = ['patient', 'doctor'];
     const statusList = ['scheduled', 'completed', 'cancelled'];
-    let userSession;
+    const userSession = JSON.parse(sessionStorage.getItem('userSession'));
 
-    useEffect(() => {
-        userSession = JSON.parse(sessionStorage.getItem('userSession'));
-
-        // if userSession is empty, go back to login page
-        if (!userSession) {
-            navigate('/');
-        } else {
-            // if role is not any of the allowedRole, go back to login page
-            if (!allowedRole.includes(userSession.role)) navigate('/');
-        }
-    }, []);
+    // if role is not any of the allowedRole, go back to login page
+    if (!allowedRole.includes(userSession.role)) navigate('/');
 
     useEffect(() => {
         switch (userSession.role) {

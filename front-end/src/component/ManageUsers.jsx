@@ -5,19 +5,10 @@ import StaffNavigation from "./StaffNavigation";
 
 export default function ManageUser() {
     const navigate = useNavigate();
-    let userSession;
+    const userSession = JSON.parse(sessionStorage.getItem('userSession'));
 
-    useEffect(() => {
-        userSession = JSON.parse(sessionStorage.getItem('userSession'));
-
-        // if userSession is empty, go back to login page
-        if (!userSession) {
-            navigate('/');
-        } else {
-            // if role is not admin, go back to login page
-            if (userSession.role !== 'admin') navigate('/');
-        }
-    }, []);
+    // if role is not admin, go back to login page
+    if (userSession.role !== 'admin') navigate('/');
 
     const [selectedUser, setSelectedUser] = useState(''); // Manage selected user type
     const {

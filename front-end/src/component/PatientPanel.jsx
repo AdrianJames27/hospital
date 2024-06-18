@@ -4,19 +4,10 @@ import PatientNavigation from './PatientNavigation';
 
 export default function PatientPanel() {
     const navigate = useNavigate();
-    let userSession;
+    const userSession = JSON.parse(sessionStorage.getItem('userSession'));
 
-    useEffect(() => {
-        userSession = JSON.parse(sessionStorage.getItem('userSession'));
-
-        // if userSession is empty, go back to login page
-        if (!userSession) {
-            navigate('/');
-        } else {
-            // if role is not patient, go back to login page
-            if (userSession.role !== 'patient') navigate('/');
-        }
-    }, []);
+    // if role is not patient, go back to login page
+    if (userSession.role !== 'patient') navigate('/');
 
     return (
         <div class="dashboard d-flex justify-content-center container-fluid vh-100">

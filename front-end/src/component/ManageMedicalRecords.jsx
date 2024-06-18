@@ -7,19 +7,10 @@ import useDoctor from "../util/useDoctor";
 
 export default function ManageMedicalRecords() {
     const navigate = useNavigate();
-    let userSession;
+    const userSession = JSON.parse(sessionStorage.getItem('userSession'));
 
-    useEffect(() => {
-        userSession = JSON.parse(sessionStorage.getItem('userSession'));
-
-        // if userSession is empty, go back to login page
-        if (!userSession) {
-            navigate('/');
-        } else {
-            // role is not doctor, go back to login page
-            if (userSession.role !== 'doctor') navigate('/');
-        }
-    }, []);
+    // role is not doctor, go back to login page
+    if (userSession.role !== 'doctor') navigate('/');
 
     const dialogRef = useRef(null);
     const [isEditing, setIsEditing] = useState(false);

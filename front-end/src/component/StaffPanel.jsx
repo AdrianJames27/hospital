@@ -5,19 +5,10 @@ import StaffNavigation from "./StaffNavigation";
 export default function StaffPanel() {
     const navigate = useNavigate();
     const allowedRole = ['admin', 'doctor', 'receptionist'];
-    let userSession;
+    const userSession = JSON.parse(sessionStorage.getItem('userSession'));
 
-    useEffect(() => {
-        userSession = JSON.parse(sessionStorage.getItem('userSession'));
-
-        // if userSession is empty, go back to login page
-        if (!userSession) {
-            navigate('/');
-        } else {
-            // if role is not included in the allowedRole, go back to login page
-            if (!allowedRole.includes(userSession.role)) navigate('/');
-        }
-    }, []);
+    // if role is not included in the allowedRole, go back to login page
+    if (!allowedRole.includes(userSession.role)) navigate('/');
 
     useEffect(() => {
         switch (userSession.role) {

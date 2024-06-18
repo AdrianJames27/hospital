@@ -9,19 +9,10 @@ import StaffNavigation from "./StaffNavigation";
 export default function BookAppointment() {
     const navigate = useNavigate();
     const allowedRole = ['patient', 'receptionist'];
-    let userSession;
+    const userSession = JSON.parse(sessionStorage.getItem('userSession'));
 
-    useEffect(() => {
-        userSession = JSON.parse(sessionStorage.getItem('userSession'));
-
-        // if userSession is empty, go back to login page
-        if (!userSession) {
-            navigate('/');
-        } else {
-            // If userSession exists but the role is not the designated role, redirect to the login page
-            if (!allowedRole.includes(userSession.role)) navigate('/');
-        }
-    }, []);
+    // If userSession exists but the role is not the designated role, redirect to the login page
+    if (!allowedRole.includes(userSession.role)) navigate('/');
 
     useEffect(() => {
         switch (userSession.role) {

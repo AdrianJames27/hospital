@@ -6,19 +6,10 @@ import StaffNavigation from "./StaffNavigation";
 export default function ManagePatientRecords() {
     const navigate = useNavigate();
     const allowedUser = ['admin', 'doctor', 'receptionist'];
-    let userSession;
+    const userSession = JSON.parse(sessionStorage.getItem('userSession'));
 
-    useEffect(() => {
-        userSession = JSON.parse(sessionStorage.getItem('userSession'));
-
-        // if userSession is empty, go back to login page
-        if (!userSession) {
-            navigate('/');
-        } else {
-            // if role is not any of the allowedUser, go back to login page
-            if (!allowedUser.includes(userSession.role)) navigate('/');
-        }
-    }, []);
+    // if role is not any of the allowedUser, go back to login page
+    if (!allowedUser.includes(userSession.role)) navigate('/');
 
     useEffect(() => {
         switch (userSession.role) {
